@@ -1,0 +1,13 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-container{
+    flex-grow: 1;
+}
+.logo-footer{
+    width: 25px;
+    height: 25px;
+}
