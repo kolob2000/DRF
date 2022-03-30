@@ -1,10 +1,9 @@
-from django.shortcuts import render
 from rest_framework import mixins
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from django_filters import rest_framework as filters
 
-from todo_list.filters import TodoFilter
+from todoapp.filters import TodoFilter
 from .models import ToDo, Project
 from .serializers import ProjectModelSerializer, TodoModelSerializer
 import todoapp.pagination as pages
