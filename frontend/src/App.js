@@ -11,29 +11,23 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            'users': []
+            'users': [],
         }
     }
 
     componentDidMount() {
         axios.get('http://127.0.0.1:8000/api/v1/users/')
             .then(response => {
-                const users = response.data;
+                const users = response.data.results;
+                for (let i in this.state) {
+                    console.log(i);
+                }
                 this.setState(
                     {
                         'users': users
                     }
                 )
             }).catch(error => console.log(error))
-        // const users = [
-        //     {
-        //         'username': 'kollabiz',
-        //         'first_name': 'Nick',
-        //         'last_name': 'Shcherbakov',
-        //         'email': 'k.kolabis@mail.ru',
-        //     }
-        // ]
-
     }
 
     render() {
