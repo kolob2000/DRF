@@ -23,7 +23,7 @@ from rest_framework.routers import DefaultRouter
 routes = DefaultRouter()
 routes.register('users', UserModelViewSet)
 routes.register('notes', ToDoModelViewSet)
-routes.register('projects', ProjectModelViewSet)
+routes.register('projects', ProjectModelViewSet, basename='projects')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
