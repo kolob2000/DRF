@@ -35,6 +35,7 @@ class ProjectModelViewSet(mixins.CreateModelMixin,
     serializer_class = ProjectModelSerializer
     pagination_class = pages.ProjectPageNumberPagination
 
+
     def get_queryset(self):
         queryset = Project.objects.all()
         title = self.request.query_params.get('title')
