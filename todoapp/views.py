@@ -1,4 +1,5 @@
 from rest_framework import mixins
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from django_filters import rest_framework as filters
@@ -18,6 +19,7 @@ class ToDoModelViewSet(ModelViewSet):
     # filterset_fields = '__all__'
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = TodoFilter
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def destroy(self, request, *args, **kwargs):
         note = self.get_object()
@@ -34,7 +36,6 @@ class ProjectModelViewSet(mixins.CreateModelMixin,
                           GenericViewSet):
     serializer_class = ProjectModelSerializer
     pagination_class = pages.ProjectPageNumberPagination
-
 
     def get_queryset(self):
         queryset = Project.objects.all()
