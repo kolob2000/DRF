@@ -3,17 +3,22 @@ from userapp.models import User
 
 
 class Command(BaseCommand):
+    names = [
+        ['Николай', 'Щербаков'],
+        ['Андрей', 'Петров'],
+        ['Лев', 'Корнеев'],
+        ['Александр', 'Малявин'],
+        ['Дмитрий', 'Поляев'],
+        ['Сергей', 'Романов'],
+    ]
 
     def handle(self, *args, **options):
-        super_user = User.objects.create_superuser('admin', 'k.kolabis@mail.ru', 'admin',
-                                                   **{'first_name': 'Николай', 'last_name': 'Щербаков'})
-        user = User.objects.create_user('user1', 'user1@mail.ru', 'user123',
-                                        **{'first_name': 'Андрей', 'last_name': 'Петров'})
-        user = User.objects.create_user('user2', 'user2@mail.ru', 'user123',
-                                        **{'first_name': 'Лев', 'last_name': 'Корнеев'})
-        user = User.objects.create_user('user3', 'user3@mail.ru', 'user123',
-                                        **{'first_name': 'Александр', 'last_name': 'Малявин'})
-        user = User.objects.create_user('user4', 'user4@mail.ru', 'user123',
-                                        **{'first_name': 'Сергей', 'last_name': 'Романов'})
-        user = User.objects.create_user('user5', 'user5@mail.ru', 'user123',
-                                        **{'first_name': 'Дмитрий', 'last_name': 'Поляев'})
+        count = 0
+        for name in self.names:
+            if count == 0:
+                super_user = User.objects.create_superuser('admin', 'k.kolabis@mail.ru', 'admin',
+                                                           **{'first_name': name[0], 'last_name': name[1]})
+            else:
+                user = User.objects.create_user(f'user{count}', f'user{count}@mail.ru', 'admin',
+                                                **{'first_name': name[0], 'last_name': name[1]})
+            count += 1
