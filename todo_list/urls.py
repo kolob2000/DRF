@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
+from graphene_django.views import GraphQLView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from todoapp.views import ToDoModelViewSet, ProjectModelViewSet
@@ -49,7 +50,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', views.obtain_auth_token),
-    # path('api/', include(routes.urls)),
+    path('api/', include(routes.urls)),
     path('api/<str:version>/users/', UserModelViewSet.as_view({'get': 'list'}), name='users-version'),
     # path('api/<str:version>/users/', UserListApiView.as_view(), name='users-version'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -71,5 +72,6 @@ urlpatterns = [
         template_name='redoc.html',
         extra_context={'schema_url': 'openapi-schema'}
     ), name='redoc-ui'),
+    path("graphql", GraphQLView.as_view(graphiql=True)),
 
 ]
