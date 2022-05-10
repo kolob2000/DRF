@@ -19,6 +19,8 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import ProjectDetail from "./component/ProjectDetail";
+import ProjectEditForm from "./component/ProjectEditForm";
+import CreateProjectForm from "./component/CreateProjectForm";
 
 class App extends React.Component {
     constructor(props) {
@@ -58,7 +60,7 @@ class App extends React.Component {
     loadData() {
         let headers = this.get_headers();
         // console.log(headers)
-        axios.get('http://127.0.0.1:8000/api/v1/users/', {headers})
+        axios.get('http://127.0.0.1:8000/api/users/', {headers})
             .then(response => {
                 const users = response.data.results;
                 this.setState(
@@ -71,7 +73,7 @@ class App extends React.Component {
             this.setState({users: []})
         });
 
-        axios.get('http://127.0.0.1:8000/api/v1/notes/', {headers})
+        axios.get('http://127.0.0.1:8000/api/notes/', {headers})
             .then(response => {
                 const todos = response.data.results;
                 this.setState(
@@ -84,7 +86,7 @@ class App extends React.Component {
             console.log(error)
             this.setState({todos: []})
         });
-        axios.get('http://127.0.0.1:8000/api/v1/projects/', {headers})
+        axios.get('http://127.0.0.1:8000/api/projects/', {headers})
             .then(response => {
                 const projects = response.data.results;
                 this.setState(
@@ -145,6 +147,45 @@ class App extends React.Component {
 
     }
 
+    deleteNote(id) {
+        const headers = this.get_headers();
+        axios.delete(`http://localhost:8000/api/notes/${id}`, {headers: headers})
+            .then(response => {
+                console.log(response.status)
+                this.loadData();
+            })
+            .catch(err => console.log(err))
+    }
+
+    deleteProject(id) {
+        const headers = this.get_headers();
+        axios.delete(`http://localhost:8000/api/projects/${id}`, {headers: headers})
+            .then(response => {
+                this.loadData();
+            })
+            .catch(err => console.log(err))
+    }
+
+    editProject(id, title, url) {
+        const headers = this.get_headers();
+        const data = {'title': title, 'url_repo': url}
+        axios.patch(`http://localhost:8000/api/projects/${id}/`, data, {headers: headers})
+            .then(response => {
+                this.loadData();
+            })
+            .catch(err => console.log(err))
+    }
+
+    createProject(title, url, user_list) {
+        const headers = this.get_headers();
+        const data = {'title': title, 'url_repo': url, 'user_list': user_list}
+        axios.post(`http://localhost:8000/api/projects/`, data, {headers: headers})
+            .then(response => {
+                this.loadData();
+            })
+            .catch(err => console.log(err))
+    }
+
     render() {
         return <div className="main">
             <Router>
@@ -156,14 +197,25 @@ class App extends React.Component {
                         <Route exact path='/login'
                                component={() => <LoginForm
                                    getToken={(username, password) => this.getToken(username, password)}/>}/>
-                        <Redirect from={'/logout'} to={'/'}/>
+                        <Redirect from={'/logout'} to={'/login'}/>
                         <Redirect from={'/in'} to={'/'}/>
-                        <Route exact path='/projects' component={() => <ProjectList projects={this.state.projects}/>}/>
+                        <Route exact path='/projects'
+                               component={() => <ProjectList projects={this.state.projects}
+                                                             deleteProject={(id) => this.deleteProject(id)}/>}/>
                         <Route exact path='/projects/:id'
                                component={() => <ProjectDetail projects={this.state.projects}
                                                                users={this.state.users}/>}/>
+                        <Route exact path='/project-edit/:id'
+                               component={() => <ProjectEditForm
+                                   editProject={(id, title, url) => this.editProject(id, title, url)}/>}/>
+                        <Route exact path='/project-create'
+                               component={() => <CreateProjectForm
+                                   createProject={(title, url, user_list) => this.createProject(title, url, user_list)}
+                                   users={this.state.users}/>}/>
+
                         <Route exact path='/todo'
-                               component={() => <TodoList todos={this.state.todos} projects={this.state.projects}/>}/>
+                               component={() => <TodoList todos={this.state.todos} projects={this.state.projects}
+                                                          deleteNote={(id) => this.deleteNote(id)}/>}/>
                         <Route component={PageNotFound}/>
                     </Switch>
                 </div>

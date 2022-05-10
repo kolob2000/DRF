@@ -1,5 +1,7 @@
 import React from "react";
 
+import {withRouter} from "react-router-dom";
+
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -21,6 +23,7 @@ class LoginForm extends React.Component {
 
     handleSubmit(event) {
         this.props.getToken(this.state.login, this.state.password);
+        this.props.history.push('/projects')
         event.preventDefault();
     }
 
@@ -52,4 +55,4 @@ class LoginForm extends React.Component {
     }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);

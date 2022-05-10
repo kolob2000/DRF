@@ -31,3 +31,6 @@
 .login-form{
     margin: 100px auto;
 }
+a{
+    text-decoration: none;
+}
