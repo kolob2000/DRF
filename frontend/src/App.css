@@ -11,3 +11,26 @@
     width: 25px;
     height: 25px;
 }
+
+.not-found{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /*height: 60vh;*/
+    justify-content: center;
+    align-items: center;
+}
+
+.not-found-img{
+    width: 256px;
+    height: 256px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.login-form{
+    margin: 100px auto;
+}
+a{
+    text-decoration: none;
+}
