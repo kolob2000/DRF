@@ -73,5 +73,6 @@ urlpatterns = [
         extra_context={'schema_url': 'openapi-schema'}
     ), name='redoc-ui'),
     path("graphql", GraphQLView.as_view(graphiql=True)),
+    path('', TemplateView.as_view(template_name='index.html'))
 
 ]
