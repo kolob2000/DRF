@@ -33,7 +33,7 @@ const TodoList = ({todos, projects, deleteNote}) => {
             </thead>
             <tbody>
             {todos.map((todo) => !todo.active ? '' :
-                <TodoItem todo={todo} projects={projects} deleteNote={deleteNote}/>)}
+                <TodoItem key={todo.id} todo={todo} projects={projects} deleteNote={deleteNote}/>)}
             </tbody>
         </table>
     )

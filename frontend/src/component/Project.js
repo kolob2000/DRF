@@ -50,7 +50,7 @@ const ProjectList = ({projects, deleteProject}) => {
                 </tr>
                 </thead>
                 <tbody>
-                {new_projects.map((project) => <ProjectItem project={project} deleteProject={deleteProject}/>)}
+                {new_projects.map((project) => <ProjectItem key={project.id} project={project} deleteProject={deleteProject}/>)}
                 {/*{projects.map((project) => <ProjectItem project={project} deleteProject={deleteProject}/>)}*/}
                 </tbody>
             </table>
