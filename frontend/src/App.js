@@ -61,7 +61,7 @@ class App extends React.Component {
     loadData() {
         let headers = this.get_headers();
         // console.log(headers)
-        axios.get('http://5.63.157.103:8000/api/users/', {headers})
+        axios.get('http://194.58.98.218:8000/api/users/', {headers})
             .then(response => {
                 const users = response.data.results;
                 this.setState(
@@ -74,7 +74,7 @@ class App extends React.Component {
             this.setState({users: []})
         });
 
-        axios.get('http://5.63.157.103:8000/api/notes/', {headers})
+        axios.get('http://194.58.98.218:8000/api/notes/', {headers})
             .then(response => {
                 const todos = response.data.results;
                 this.setState(
@@ -87,7 +87,7 @@ class App extends React.Component {
             console.log(error)
             this.setState({todos: []})
         });
-        axios.get('http://5.63.157.103:8000/api/projects/', {headers})
+        axios.get('http://194.58.98.218:8000/api/projects/', {headers})
             .then(response => {
                 const projects = response.data.results;
                 this.setState(
@@ -122,7 +122,7 @@ class App extends React.Component {
 
 
     getToken(username, password) {
-        axios.post('http://5.63.157.103:8000/api-token-auth/', {'username': username, 'password': password}
+        axios.post('http://194.58.98.218:8000/api-token-auth/', {'username': username, 'password': password}
         )
             .then(response => {
                 this.setState({
@@ -150,7 +150,7 @@ class App extends React.Component {
 
     deleteNote(id) {
         const headers = this.get_headers();
-        axios.delete(`http://5.63.157.103:8000/api/notes/${id}`, {headers: headers})
+        axios.delete(`http://194.58.98.218:8000/api/notes/${id}`, {headers: headers})
             .then(response => {
                 console.log(response.status)
                 this.loadData();
@@ -160,7 +160,7 @@ class App extends React.Component {
 
     deleteProject(id) {
         const headers = this.get_headers();
-        axios.delete(`http://5.63.157.103:8000/api/projects/${id}`, {headers: headers})
+        axios.delete(`http://194.58.98.218:8000/api/projects/${id}`, {headers: headers})
             .then(response => {
                 this.loadData();
             })
@@ -170,7 +170,7 @@ class App extends React.Component {
     editProject(id, title, url) {
         const headers = this.get_headers();
         const data = {'title': title, 'url_repo': url}
-        axios.patch(`http://5.63.157.103:8000/api/projects/${id}/`, data, {headers: headers})
+        axios.patch(`http://194.58.98.218:8000/api/projects/${id}/`, data, {headers: headers})
             .then(response => {
                 this.loadData();
             })
@@ -180,7 +180,7 @@ class App extends React.Component {
     createProject(title, url, user_list) {
         const headers = this.get_headers();
         const data = {'title': title, 'url_repo': url, 'user_list': user_list}
-        axios.post(`http://5.63.157.103:8000/api/projects/`, data, {headers: headers})
+        axios.post(`http://194.58.98.218:8000/api/projects/`, data, {headers: headers})
             .then(response => {
                 this.loadData();
             })
@@ -197,7 +197,7 @@ class App extends React.Component {
             'create_by_user': this.state.users.find((user) => user.username === this.current_user()).id
         }
         console.log(data)
-        axios.post(`http://5.63.157.103:8000/api/notes/`, data, {headers: headers})
+        axios.post(`http://194.58.98.218:8000/api/notes/`, data, {headers: headers})
             .then(response => {
                 this.loadData();
             })
