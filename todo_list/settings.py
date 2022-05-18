@@ -85,9 +85,16 @@ WSGI_APPLICATION = 'todo_list.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'todo',
+        'USER': 'kolob',
+        'PASSWORD': 'kolob1234',
+        'HOST': 'db',
+        'PORT': '5432',
     }
+
 }
 
 # Password validation
@@ -126,7 +133,6 @@ STATIC_URL = 'static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'frontend/build/static'), os.path.join(BASE_DIR, 'frontend/build/'))
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -137,7 +143,8 @@ AUTH_USER_MODEL = 'userapp.User'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
-    'http://192.168.56.1:3000'
+    'http://192.168.56.1:3000',
+    'http://localhost:80'
 ]
 
 REST_FRAMEWORK = {
