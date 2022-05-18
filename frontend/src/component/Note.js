@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const TodoItem = ({todo, projects, deleteNote}) => {
     let project_name = ''
@@ -23,19 +24,24 @@ const TodoItem = ({todo, projects, deleteNote}) => {
 
 const TodoList = ({todos, projects, deleteNote}) => {
     return (
-        <table className="table">
-            <thead>
-            <tr>
-                <th scope="col">Назввние</th>
-                <th scope="col">Проект</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            {todos.map((todo) => !todo.active ? '' :
-                <TodoItem key={todo.id} todo={todo} projects={projects} deleteNote={deleteNote}/>)}
-            </tbody>
-        </table>
+        <>
+            <table className="table">
+                <thead>
+                <tr>
+                    <th scope="col">Назввние</th>
+                    <th scope="col">Проект</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {todos.map((todo) => !todo.active ? '' :
+                    <TodoItem key={todo.id} todo={todo} projects={projects} deleteNote={deleteNote}/>)}
+                </tbody>
+            </table>
+            <Link to={`note-create`}
+                  className="btn btn-dark me-2">Создать запись
+            </Link>
+        </>
     )
 }
 

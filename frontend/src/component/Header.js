@@ -17,10 +17,10 @@ const Header = (props) => {
                         <li><Link to='/todo' className="nav-link px-2 text-white">Заметки</Link></li>
                     </ul>
 
-                    <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                        <input type="search" className="form-control form-control-dark" placeholder="Search..."
-                               aria-label="Search"/>
-                    </form>
+                    {/*<form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">*/}
+                    {/*    <input type="search" className="form-control form-control-dark" placeholder="Search..."*/}
+                    {/*           aria-label="Search"/>*/}
+                    {/*</form>*/}
 
                     <div className="text-end">
                         {props.isAuthenticated() ?
